@@ -96,7 +96,7 @@ public func encode(payload:Payload, algorithm:Algorithm) -> String {
     return nil
   }
 
-  let header = encodeJSON(["typ": "JWT", "alg": algorithm.description])!
+  let header = encodeJSON(["alg": algorithm.description])!
   let payload = encodeJSON(payload)!
   let signingInput = "\(header).\(payload)"
   let signature = algorithm.sign(signingInput)
@@ -133,7 +133,7 @@ public class PayloadBuilder {
       return nil
     }
     set {
-      payload["exp"] = newValue?.timeIntervalSince1970
+      payload["exp"] = Int(newValue!.timeIntervalSince1970)
     }
   }
 
@@ -146,7 +146,7 @@ public class PayloadBuilder {
       return nil
     }
     set {
-      payload["nbf"] = newValue?.timeIntervalSince1970
+      payload["nbf"] = Int(newValue!.timeIntervalSince1970)
     }
   }
 
@@ -159,7 +159,7 @@ public class PayloadBuilder {
       return nil
     }
     set {
-      payload["iat"] = newValue?.timeIntervalSince1970
+      payload["iat"] = Int(newValue!.timeIntervalSince1970)
     }
   }
 
